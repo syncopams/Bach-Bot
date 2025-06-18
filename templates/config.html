@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bach Bot Configuration</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #2c3e50;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+            color: #34495e;
+        }
+        input[type="text"], input[type="url"] {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            box-sizing: border-box;
+            font-size: 14px;
+        }
+        input[type="text"]:focus, input[type="url"]:focus {
+            outline: none;
+            border-color: #3498db;
+            box-shadow: 0 0 5px rgba(52, 152, 219, 0.3);
+        }
+        .button {
+            background: #3498db;
+            color: white;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-block;
+            margin: 5px;
+            transition: background 0.3s;
+        }
+        .button:hover {
+            background: #2980b9;
+        }
+        .button.success {
+            background: #27ae60;
+        }
+        .button.success:hover {
+            background: #229954;
+        }
+        .alert {
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 5px;
+        }
+        .alert.success {
+            background: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+        .help-text {
+            font-size: 12px;
+            color: #6c757d;
+            margin-top: 5px;
+        }
+        .card {
+            background: #f8f9fa;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 8px;
+            border-left: 4px solid #17a2b8;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>⚙️ Bach Bot Configuration</h1>
+        
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    <div class="alert {{ category }}">{{ message }}</div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+
+        <div class="card">
+            <h3>Setup Instructions</h3>
+            <p>To get your Mastodon credentials:</p>
+            <ol>
+                <li>Go to your Mastodon instance (e.g., mastodon.social)</li>
+                <li>Go to Preferences → Development → New Application</li>
+                <li>Create an application with read and write permissions</li>
+                <li>Copy the Client Key, Client Secret, and Access Token</li>
+                <li>Or use the setup.py script for automated setup</li>
+            </ol>
+        </div>
+
+        <form method="POST" action="/save_config">
+            <div class="form-group">
+                <label for="instance_url">Mastodon Instance URL:</label>
+                <input type="url" id="instance_url" name="instance_url" 
+                       value="{{ config.mastodon.instance_url if config.mastodon else '' }}" 
+                       placeholder="https://mastodon.social" required>
+                <div class="help-text">The URL of your Mastodon instance</div>
+            </div>
+
+            <div class="form-group">
+                <label for="client_key">Client Key:</label>
+                <input type="text" id="client_key" name="client_key" 
+                       value="{{ config.mastodon.client_key if config.mastodon else '' }}" 
+                       placeholder="Your application's client key" required>
+                <div class="help-text">From your Mastodon application settings</div>
+            </div>
+
+            <div class="form-group">
+                <label for="client_secret">Client Secret:</label>
+                <input type="text" id="client_secret" name="client_secret" 
+                       value="{{ config.mastodon.client_secret if config.mastodon else '' }}" 
+                       placeholder="Your application's client secret" required>
+                <div class="help-text">From your Mastodon application settings</div>
+            </div>
+
+            <div class="form-group">
+                <label for="access_token">Access Token:</label>
+                <input type="text" id="access_token" name="access_token" 
+                       value="{{ config.mastodon.access_token if config.mastodon else '' }}" 
+                       placeholder="Your access token" required>
+                <div class="help-text">From your Mastodon application settings</div>
+            </div>
+
+            <button type="submit" class="button success">💾 Save Configuration</button>
+            <a href="/" class="button">🏠 Back to Dashboard</a>
+        </form>
+    </div>
+</body>
+</html>
+
