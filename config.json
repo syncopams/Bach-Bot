@@ -1,0 +1,12 @@
+{
+  "mastodon": {
+    "instance_url": "https://mastodon.social",
+    "client_key": "YOUR_CLIENT_KEY_HERE",
+    "client_secret": "YOUR_CLIENT_SECRET_HERE",
+    "access_token": "YOUR_ACCESS_TOKEN_HERE"
+  },
+  "youtube": {
+    "search_base_url": "https://www.youtube.com/results?search_query="
+  }
+}
+

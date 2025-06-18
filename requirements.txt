@@ -1,0 +1,27 @@
+# Requirements for Bach Bot
+
+## Python Dependencies
+Mastodon.py==2.0.1
+flask==3.1.1
+flask-cors==6.0.1
+requests>=2.4.2
+python-dateutil
+decorator>=4.0.0
+python-magic
+blurhash>=1.1.4
+
+## System Requirements
+- Python 3.7 or higher
+- pip (Python package installer)
+- cron (for scheduling on Linux/macOS)
+- A Mastodon account on any instance
+
+## Optional Dependencies
+- systemd (for systemd timer scheduling on Linux)
+- nginx or apache (for production web interface deployment)
+
+## Installation
+```bash
+pip install -r requirements.txt
+```
+
